@@ -1,25 +1,25 @@
 <script >
 import axios from 'axios'
-
+import ProjectCard from './components/ProjectCard.vue'
 export default {
     name: "App",
 
     data() {
-
         return {
-            baseurl: 'http://127.0.0.1:8000/',
+            base_url: 'http://127.0.0.1:8000/',
             apiProjects: 'api/projects',
             projects: [],
         }
-
     },
 
-    methods: {
-
+    components: {
+        ProjectCard,
     },
+
+
 
     mounted() {
-        axios.get(this.baseurl + this.apiProjects)
+        axios.get(this.base_url + this.apiProjects)
             .then(response => {
                 console.log(response);
                 this.projects = response.data.result.data
@@ -27,7 +27,6 @@ export default {
                 console.error(err);
             })
     }
-
 
 }
 
@@ -45,28 +44,8 @@ export default {
     <main>
         <div class="container">
             <div class="row g-3">
-                <div v-for="project in projects" class="col-4">
-                    <div class="card">
-                        <div class="card-header">
-                            <h1>{{ project.title }}</h1>
-                        </div>
-                        <div class="card-body">
-                            <h3><strong>slug: </strong> {{ project.slug }}</h3>
-                            <p><strong>github_link: </strong>{{ project.github_link }}</p>
-                            <p><strong>project_link: </strong> {{ project.project_link }}</p>
-                            <img class="img-fluid" :src="project.thumb" alt="">
-                            <p>{{ project.description }}</p>
+                <ProjectCard v-for="project in  projects" :project="project" :base_url="base_url" />
 
-                            <ul class="d-flex  g-2 list-unstyled">
-                                <li class="badge bg-secondary me-1" v-for="technology in project.technologies">
-                                    <i class="fas fa-tag fa-xs fa-fw"></i> {{ technology.name }}
-                                </li>
-                                <li v-if="project.technologies.length === 0" class="badge bg-secondary">Untagged</li>
-                            </ul>
-
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -78,6 +57,6 @@ export default {
     </footer>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 /*  */
 </style>
