@@ -1,23 +1,17 @@
 <script >
-import ProjectCard from './components/ProjectCard.vue'
 
-import { store } from './store.js'
 export default {
     name: "App",
     components: {
-        ProjectCard,
     },
 
     data() {
         return {
-            store,
 
         }
     },
 
-    created() {
-        this.store.fetchProjects()
-    }
+
 
 }
 
@@ -26,29 +20,19 @@ export default {
 <template>
     <header>
         <nav class="nav justify-content-center ">
-            <a class="nav-link active" href="#" aria-current="page">About Me</a>
-            <a class="nav-link" href="#">Projects</a>
-            <a class="nav-link " href="#">Contacts</a>
+            <router-link class="nav-link" to="/about">About</router-link>
+
+            <router-link class="nav-link" to="/Projects">Projects</router-link>
+
+            <router-link class="nav-link active" to="/" aria-current="page">Home <span
+                    class="visually-hidden">(current)</span></router-link>
+
+            <router-link class="nav-link" to="/contacts">Contacts</router-link>
+
         </nav>
     </header>
     <main>
-        <div class="container">
-            <div class="row g-3">
-
-                <div class="pagination p-3 d-flex align-items-center gap-3 ">
-                    <button class="btn btn-outline-light" @click="store.prev()"
-                        :disabled="store.currentPage === 1">Prev</button>
-
-                    <span>{{ store.currentPage }}</span>
-
-                    <button class="btn btn-outline-light" @click="store.next()"
-                        :disabled="store.currentPage === store.totalPages">Next</button>
-                </div>
-
-                <!--per le img -> :base_url="base_url"  👇-->
-                <ProjectCard v-for="project in  store.projects" :project="project" />
-            </div>
-        </div>
+        <router-view></router-view>
 
     </main>
     <footer>
