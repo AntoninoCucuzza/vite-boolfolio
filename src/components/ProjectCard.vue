@@ -1,20 +1,33 @@
 <script>
-import axios from 'axios'
-
 export default {
     name: 'ProjectCard',
-
     props: [
         'project',
         'base_url',
     ],
 
-}
-</script>
+    data() {
+        return {
+            imageError: false
+        };
+    },
 
+    methods: {
+
+        getImg(url) {
+            return new URL(`${url}`, import.meta.url).href
+        },
+
+        isError() {
+            this.imageError = true;
+        }
+    }
+}
+/*per le img -> this.base_url + 'storage/' +  */
+</script>
 <template>
     <div class="col-4">
-        <div class="card">
+        <div class="card card_custom h-100 my-3">
             <div class="card-header">
                 <h1>{{ project.title }}</h1>
                 <p v-if="project.type"><strong>type: </strong>{{ project.type.name }}</p>
@@ -24,14 +37,20 @@ export default {
                 <h3><strong>slug: </strong> {{ project.slug }}</h3>
                 <p><strong>github_link: </strong>{{ project.github_link }}</p>
                 <p><strong>project_link: </strong> {{ project.project_link }}</p>
-                <img class="img-fluid" :src="project.thumb" alt="">
+
+                <div class="img-wrapper">
+                    <img v-if="imageError === false" class="img-fluid" :src="getImg(project.thumb)" alt=""
+                        @error="isError()">
+                    <img class="img-fluid" :src="getImg('../assets/img/placeholder.png')" alt="" v-else>
+                </div>
+
                 <p>{{ project.description }}</p>
 
-                <ul class="d-flex  g-2 list-unstyled">
-                    <li class="badge bg-secondary me-1" v-for=" technology  in  project.technologies ">
+                <ul class="d-flex flex-wrap gap-1 list-unstyled">
+                    <li class="badge badge_custom me-1" v-for=" technology  in  project.technologies ">
                         <i class="fas fa-tag fa-xs fa-fw"></i> {{ technology.name }}
                     </li>
-                    <li v-if="project.technologies.length === 0" class="badge bg-secondary">Untagged</li>
+                    <li v-if="project.technologies.length === 0" class="badge badge_custom">Untagged</li>
                 </ul>
 
             </div>
@@ -40,5 +59,24 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-/*  */
+.card_custom {
+    background-color: transparent;
+    border: 2px solid #0F0F0F !important;
+    border: none;
+    color: white;
+
+    &:hover {
+        background-color: rgba(65, 62, 62, 0.204);
+        border: 2px solid #44d62c !important;
+
+    }
+
+    .badge_custom {
+        font-size: 14px;
+        border-radius: 50px;
+        color: #44d62c;
+        background-color: rgba(0, 0, 0, 0.555) !important;
+
+    }
+}
 </style>

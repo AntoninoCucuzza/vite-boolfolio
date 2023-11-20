@@ -1,31 +1,22 @@
 <script >
-import axios from 'axios'
 import ProjectCard from './components/ProjectCard.vue'
+
+import { store } from './store.js'
 export default {
     name: "App",
-
-    data() {
-        return {
-            base_url: 'http://127.0.0.1:8000/',
-            apiProjects: 'api/projects',
-            projects: [],
-        }
-    },
-
     components: {
         ProjectCard,
     },
 
+    data() {
+        return {
+            store,
 
+        }
+    },
 
-    mounted() {
-        axios.get(this.base_url + this.apiProjects)
-            .then(response => {
-                console.log(response);
-                this.projects = response.data.result.data
-            }).catch(err => {
-                console.error(err);
-            })
+    created() {
+        this.store.fetchProjects()
     }
 
 }
@@ -34,29 +25,40 @@ export default {
 
 <template>
     <header>
-        <nav class="nav justify-content-center  ">
-            <a class="nav-link active" href="#" aria-current="page">Active link</a>
-            <a class="nav-link" href="#">Link</a>
-            <a class="nav-link disabled" href="#">Disabled link</a>
+        <nav class="nav justify-content-center ">
+            <a class="nav-link active" href="#" aria-current="page">About Me</a>
+            <a class="nav-link" href="#">Projects</a>
+            <a class="nav-link " href="#">Contacts</a>
         </nav>
     </header>
-
     <main>
         <div class="container">
             <div class="row g-3">
-                <ProjectCard v-for="project in  projects" :project="project" :base_url="base_url" />
 
+                <div class="pagination p-3 d-flex align-items-center gap-3 ">
+                    <button class="btn btn-outline-light" @click="store.prev()"
+                        :disabled="store.currentPage === 1">Prev</button>
+
+                    <span>{{ store.currentPage }}</span>
+
+                    <button class="btn btn-outline-light" @click="store.next()"
+                        :disabled="store.currentPage === store.totalPages">Next</button>
+                </div>
+
+                <!--per le img -> :base_url="base_url"  👇-->
+                <ProjectCard v-for="project in  store.projects" :project="project" />
             </div>
         </div>
 
     </main>
-
     <footer>
-        <h2>footer</h2>
-
+        <h1>footer</h1>
     </footer>
 </template>
 
-<style lang="scss" scoped>
-/*  */
+<style lang="scss" >
+body {
+    background-color: #0F0F0F;
+
+}
 </style>

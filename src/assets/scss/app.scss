@@ -1,1 +1,7 @@
-@use "../node_modules/bootstrap/scss/bootstrap.scss"
+@use "../node_modules/bootstrap/scss/bootstrap.scss";
+
+
+.bg-app {
+    background-color: #0F0F0F;
+    color: white;
+}
