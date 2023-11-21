@@ -21,7 +21,10 @@ export default {
         isError() {
             this.imageError = true;
         }
-    }
+    },
+    created() {
+
+    },
 }
 /*per le img -> this.base_url + 'storage/' +  */
 </script>
@@ -53,6 +56,9 @@ export default {
                     <li v-if="project.technologies.length === 0" class="badge badge_custom">Untagged</li>
                 </ul>
 
+            </div>
+            <div class="card-footer">
+                <router-link :to="{ name: 'project', params: { slug: project.slug } }">View Project</router-link>
             </div>
         </div>
     </div>
