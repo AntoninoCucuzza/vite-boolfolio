@@ -1,4 +1,6 @@
 <script>
+import { store } from '../store';
+
 export default {
     name: 'ProjectCard',
     props: [
@@ -8,15 +10,13 @@ export default {
 
     data() {
         return {
+            store,
             imageError: false
+
         };
     },
 
     methods: {
-
-        getImg(url) {
-            return new URL(`${url}`, import.meta.url).href
-        },
 
         isError() {
             this.imageError = true;
@@ -42,9 +42,9 @@ export default {
                 <p><strong>project_link: </strong> {{ project.project_link }}</p>
 
                 <div class="img-wrapper">
-                    <img v-if="imageError === false" class="img-fluid" :src="getImg(project.thumb)" alt=""
+                    <img v-if="imageError === false" class="img-fluid" :src="store.getImg(project.thumb)" alt=""
                         @error="isError()">
-                    <img class="img-fluid" :src="getImg('../assets/img/placeholder.png')" alt="" v-else>
+                    <img class="img-fluid" :src="store.getImg('../assets/img/placeholder.png')" alt="" v-else>
                 </div>
 
                 <p>{{ project.description }}</p>
@@ -64,25 +64,4 @@ export default {
     </div>
 </template>
 
-<style lang="scss" scoped>
-.card_custom {
-    background-color: transparent;
-    border: 2px solid #0F0F0F !important;
-    border: none;
-    color: white;
-
-    &:hover {
-        background-color: rgba(65, 62, 62, 0.204);
-        border: 2px solid #44d62c !important;
-
-    }
-
-    .badge_custom {
-        font-size: 14px;
-        border-radius: 50px;
-        color: #44d62c;
-        background-color: rgba(0, 0, 0, 0.555) !important;
-
-    }
-}
-</style>
+<style lang="scss" scoped></style>

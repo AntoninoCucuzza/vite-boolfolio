@@ -11,17 +11,13 @@ export default {
         }
     },
     methods: {
-        getPlaceholderImg(url) {
-            return new URL(`${url}`, import.meta.url).href
-        },
-
         fetchData() {
-            axios.get(store.base_url + store.apiProjects + '/' + `${this.$route.params.slug}`)
+            axios.get(store.base_url + store.apiProjects + '/project/' + `${this.$route.params.slug}`)
                 .then(response => {
                     this.project = response.data.project;
                     console.log(this.project);
-                }).catch(err => {
-                    console.error(err);
+                }).catch(error => {
+                    console.error(error);
                 })
         }
     },
@@ -35,7 +31,7 @@ export default {
 <template>
     <h1>{{ project.title }}</h1>
     <p>{{ project.description }}</p>
-    <img class="img-fluid" :src="project.thumb" alt="">
+    <img class="img-fluid" :src="store.getImg(project.thumb)" alt="">
     <p>{{ project.github_link }}</p>
     <p>{{ project.project_link }}</p>
 

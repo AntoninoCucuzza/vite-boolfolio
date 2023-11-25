@@ -1,7 +1,43 @@
 @use "../node_modules/bootstrap/scss/bootstrap.scss";
 
+/* Variables */
+@use './partials/variables' as *;
 
 .bg-app {
-    background-color: #0F0F0F;
-    color: white;
+    background-color: $black_main;
+    color: $white;
+}
+
+a {
+    color: $green_main;
+    text-decoration: none;
+}
+
+.card_custom {
+    background-color: transparent;
+    border: 2px solid $black_main !important;
+    border: none;
+    color: $white;
+
+    &:hover {
+        background-color: $gray_main;
+        border: 2px solid $green_main !important;
+    }
+
+}
+
+
+.badge_custom {
+    font-size: 14px;
+    border-radius: 50px;
+    color: $green_main;
+    background-color: $half_black !important;
+}
+
+.badge_custom_sm {
+    font-size: 12px;
+    height: 20px;
+    border-radius: 50px;
+    color: $green_main;
+    background-color: $half_black !important;
 }
