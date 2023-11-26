@@ -88,14 +88,14 @@ export default {
             </div>
             <div class="right col-3 d-none d-lg-block">
                 <div class=" mt-3">
-                    <h4>che technologie uso?</h4>
+                    <h4>what technologies do I use?</h4>
                     <ul class=" list-unstyled">
                         <li class="d-flex justify-content-between my-3" v-for="technology in store.technologies">
                             <span>{{ technology.name }}</span>
                             <!-- <span class=" badge text_green text-bg-dark">{{ technology.projects.length }}</span> -->
                         </li>
                     </ul>
-                    <h4 class="mt-5">tipologia progetti svolti </h4>
+                    <h4 class="mt-5">type of projects </h4>
                     <ul class=" list-unstyled">
                         <li class="d-flex justify-content-between my-3" v-for="types in store.types">
                             <span>{{ types.name }}</span>

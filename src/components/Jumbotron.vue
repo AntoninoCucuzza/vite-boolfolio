@@ -36,6 +36,7 @@
         height: 100%;
         background-image: url('../assets/img/Jumbotron.png');
         background-size: 100%;
+        background-position: center;
         background-repeat: no-repeat;
         filter: blur(10px) brightness(69%) saturate(420%);
         position: absolute;
