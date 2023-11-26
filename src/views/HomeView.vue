@@ -21,7 +21,9 @@ export default {
 
     created() {
         store.fetchLatest()
-        console.log('URL:', store.base_url + store.apiProjects + '/latest');
+        store.fetchTechnlogies()
+        store.fetchTypes()
+        //console.log('URL:', store.base_url + store.apiProjects + '/latest');
 
     },
 }
@@ -56,24 +58,26 @@ export default {
                     </div>
                     <div class="row" v-else>
                         <div class="project_card d-flex p-0 w-100 ">
-                            <div class="img-wrapper">
-                                <img class="img img-fluid h-100 object-fit-cover" :src="store.getImg(project.thumb)" alt="">
+                            <div class="col-4 h-100">
+                                <div class="img-wrapper h-100">
+                                    <img class="img img-fluid h-100" :src="store.getImg(project.thumb)" alt="">
+                                </div>
                             </div>
-                            <div class="content text-white">
+                            <div class="content text-white col-8 ">
                                 <h1>{{ project.title }}</h1>
                                 <p>{{ project.description }}</p>
                                 <div class="d-flex mt-3">
                                     <ul class="ms-2 d-flex flex-wrap gap-1 list-unstyled">
-                                        <template v-for="technology in project.technologies">
-                                            <li class="badge badge_custom_sm">
-                                                <i class="fas fa-tag fa-xs fa-fw"></i> {{ technology.name }}
-                                            </li>
-                                        </template>
-
+                                        <li class="badge badge_custom_sm" v-for="technology in project.technologies">
+                                            <i class="fas fa-tag fa-xs fa-fw"></i> {{ technology.name }}
+                                        </li>
+                                        <li v-if="project.technologies.length === 0" class="badge badge_custom">
+                                            Untagged
+                                        </li>
                                     </ul>
                                 </div>
                                 <div class="single_project">
-                                    <router-link class="flex-shrink-0"
+                                    <router-link class="project_link"
                                         :to="{ name: 'project', params: { slug: project.slug } }">View
                                         Project</router-link>
                                 </div>
@@ -82,10 +86,22 @@ export default {
                     </div>
                 </div>
             </div>
-            <div class="col-3 d-none d-lg-block">
-                <div class="card mt-3">
-                    <h1>tabella tech e type?</h1>
-
+            <div class="right col-3 d-none d-lg-block">
+                <div class=" mt-3">
+                    <h4>che technologie uso?</h4>
+                    <ul class=" list-unstyled">
+                        <li class="d-flex justify-content-between my-3" v-for="technology in store.technologies">
+                            <span>{{ technology.name }}</span>
+                            <!-- <span class=" badge text_green text-bg-dark">{{ technology.projects.length }}</span> -->
+                        </li>
+                    </ul>
+                    <h4 class="mt-5">tipologia progetti svolti </h4>
+                    <ul class=" list-unstyled">
+                        <li class="d-flex justify-content-between my-3" v-for="types in store.types">
+                            <span>{{ types.name }}</span>
+                            <span class=" badge text_green ">{{ types.projects.length }}</span>
+                        </li>
+                    </ul>
                 </div>
 
             </div>
@@ -96,7 +112,19 @@ export default {
 <style lang="scss" scoped>
 @use '../assets/scss/partials/variables' as *;
 
+.right {
+    li {
+        border-bottom: 1px solid $green_main;
+    }
+
+}
+
+.text_green {
+    color: $green_main !important;
+}
+
 .project_card {
+    max-height: 225px;
     border: 2px solid $black_main ;
     flex-direction: column;
     border-radius: 5px;
@@ -104,7 +132,7 @@ export default {
     z-index: 0;
 
     &:hover {
-        border: 2px solid $green_main !important;
+        border: 2px solid $green_main ;
 
         .img {
             transform: scale(1.3) rotate(3deg);
@@ -112,12 +140,16 @@ export default {
     }
 
     .img-wrapper {
+        background-color: $black_secondary;
         position: relative;
         z-index: 0;
     }
 
     .img {
         transition: transform .2s;
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
     }
 
     .content {
@@ -131,19 +163,16 @@ export default {
     p {
         position: relative;
         margin: 1rem 0 0;
+        margin-top: 1.25rem;
 
-        &:first-of-type {
-            margin-top: 1.25rem;
-
-            &:before {
-                content: "";
-                position: absolute;
-                height: 5px;
-                background: $green_main;
-                width: 35px;
-                top: -0.75rem;
-                border-radius: 3px;
-            }
+        &:before {
+            content: "";
+            position: absolute;
+            height: 5px;
+            background: $green_main;
+            width: 35px;
+            top: -0.75rem;
+            border-radius: 3px;
         }
     }
 
@@ -151,12 +180,10 @@ export default {
         flex-direction: row;
 
         .img-wrapper {
-            flex-basis: 40%;
-            height: auto;
+            background-color: $black_secondary;
         }
 
         .content {
-            flex-basis: 60%;
             background-color: $black_secondary;
 
             &:before {
@@ -175,21 +202,9 @@ export default {
                 position: absolute;
                 bottom: 20px;
                 right: 20px;
+
+
             }
-        }
-
-        &.alt {
-            flex-direction: row-reverse;
-
-            .content {
-                &:before {
-                    left: inherit;
-                    right: -10px;
-                    transform: skew(3deg)
-                }
-            }
-
-
         }
     }
 }

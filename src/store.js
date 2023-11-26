@@ -6,12 +6,42 @@ export const store = reactive({
 
     base_url: 'http://127.0.0.1:8000/',
     apiProjects: 'api/projects',
+    apiTechnologies: 'api/technologies',
+    apiTypes: 'api/types',
+    types: [],
+    technologies: [],
     projects: [],
     latest: [],
     currentPage: 1,
     totalPages: null,
 
     isLoading: true,
+
+
+    fetchTechnlogies() {
+        axios.get(this.base_url + this.apiTechnologies)
+            .then(response => {
+                //console.log(response);
+                this.technologies = response.data.result.data
+                console.log(this.technologies);
+                this.isLoading = false
+            }).catch(error => {
+                console.error(error);
+            })
+    },
+
+    fetchTypes() {
+        axios.get(this.base_url + this.apiTypes)
+            .then(response => {
+                //console.log(response);
+                this.types = response.data.result.data
+                console.log(this.types);
+
+                this.isLoading = false
+            }).catch(error => {
+                console.error(error);
+            })
+    },
 
     fetchProjects() {
         axios.get(this.base_url + this.apiProjects + `?page=${this.currentPage}`)
@@ -29,9 +59,9 @@ export const store = reactive({
             })
     },
 
-    
+
     fetchLatest() {
-        axios.get(this.base_url + this.apiProjects + '/'+'latest')
+        axios.get(this.base_url + this.apiProjects + '/' + 'latest')
             .then(response => {
                 this.latest = response.data.projects
                 this.isLoading = false
