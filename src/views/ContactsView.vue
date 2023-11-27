@@ -68,8 +68,8 @@ export default {
             <div class="col-12 text-light">
                 <form action="" v-on:submit.prevent="sendForm()">
                     <div class="mb-2">
-                        <label for="name" class="form-label"><strong>Name:</strong></label>
-                        <input type="text" name="name" id="name" class="form-control" placeholder="Enter your name"
+                        <label for="name" class=""><strong>Name:</strong></label>
+                        <input type="text" name="name" id="name" class="" placeholder="Enter your name"
                             aria-describedby="nameHelper" v-model="name" :class="{ 'is-invalid': errors.name }">
 
                         <div class="d-flex justify-content-between">
@@ -83,8 +83,8 @@ export default {
                     </div>
 
                     <div class="mb-2">
-                        <label for="email" class="form-label"><strong>Email:</strong></label>
-                        <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelpId"
+                        <label for="email" class=""><strong>Email:</strong></label>
+                        <input type="email" class="" name="email" id="email" aria-describedby="emailHelpId"
                             placeholder="ezample@email.com" v-model="email" :class="{ 'is-invalid': errors.email }">
 
                         <div class="d-flex justify-content-between">
@@ -99,8 +99,8 @@ export default {
                     </div>
 
                     <div class="mb-2">
-                        <label for="phone" class="form-label"><strong>Phone Number:</strong></label>
-                        <input type="tel" name="phone" id="phone" class="form-control" placeholder="type ur phone nunmber"
+                        <label for="phone" class=""><strong>Phone Number:</strong></label>
+                        <input type="tel" name="phone" id="phone" class="" placeholder="type ur phone nunmber"
                             aria-describedby="phoneHelper" v-model="phone" :class="{ 'is-invalid': errors.phone }">
 
                         <div class="d-flex justify-content-between">
@@ -115,8 +115,8 @@ export default {
                     </div>
 
                     <div class="mb-2">
-                        <label for="message" class="form-label"><strong>Message:</strong></label>
-                        <textarea class="form-control" name="message" id="message" rows="3" aria-describedby="messageHelpId"
+                        <label for="message" class=""><strong>Message:</strong></label>
+                        <textarea class="" name="message" id="message" rows="3" aria-describedby="messageHelpId"
                             v-model="message" :class="{ 'is-invalid': errors.message }"></textarea>
 
                         <div class="d-flex justify-content-between">
@@ -139,7 +139,7 @@ export default {
                     <span v-if="success" class="text-success mx-3">Your email has been sent</span>
                 </form>
             </div>
-            <div class="col-12 mt-4">
+            <div class="col-12 my-5 ">
                 <h3>still wanna know more aboout me?</h3>
                 <ul class="list-unstyled fs-6 gap-3 d-flex flex-wrap mt-3">
                     <li>
@@ -148,19 +148,11 @@ export default {
                     </li>
 
                     <li>
-                        <a href="https://github.com/AntoninoCucuzza" target="blank" class="icon-link text-light fs-1"><i
-                                class="fa-brands fa-github fa-2xl"></i> GitHub</a>
+                        <a href="https://www.linkedin.com/in/antonino-cucuzza-7660382a2/" target="blank"
+                            class="icon-link text-light fs-1"><i class="fa-brands fa-linkedin fa-2xl"></i> Linkedin</a>
                     </li>
 
-                    <li>
-                        <a href="https://github.com/AntoninoCucuzza" target="blank" class="icon-link text-light fs-1"><i
-                                class="fa-brands fa-github fa-2xl"></i> GitHub</a>
-                    </li>
 
-                    <li>
-                        <a href="https://github.com/AntoninoCucuzza" target="blank" class="icon-link text-light fs-1"><i
-                                class="fa-brands fa-github fa-2xl"></i> GitHub</a>
-                    </li>
 
                 </ul>
             </div>
@@ -169,6 +161,43 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+@use '../assets/scss/partials/variables' as *;
+
+textarea,
+input {
+    background-color: $black_main;
+    border: 1px solid transparent;
+    border-bottom: 2px solid $green_main;
+    color: $white;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    margin: 0.25rem 0;
+
+    &:focus {
+        outline: none;
+        background-color: $half_black !important;
+    }
+
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+    border-bottom: 1px solid $green_main;
+    -webkit-text-fill-color: $white;
+    -webkit-box-shadow: 0 0 0px 1000px $half_black inset;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
 li {
     margin: 1rem;
 }
